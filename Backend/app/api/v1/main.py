@@ -1,5 +1,12 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from Backend.app.core.configure import settings
+from Backend.app.core.logging import setup_logging,get_logger
+
+setup_logging()
+
+# setting the logger
+logger=get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
@@ -12,12 +19,16 @@ async def lifespan(app:FastAPI):
     Shutdown:
         Gracefully release resources before exiting.
     """
-    print("Application is starting......")
+    logger.info("Application is started......")
     
     yield
     
-    print("Application is shutdown.........")
-app=FastAPI()
+    logger.info("Application is shutdown.........")
+app=FastAPI(
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    lifespan=lifespan,
+    )
 
 @app.get("/")
 
