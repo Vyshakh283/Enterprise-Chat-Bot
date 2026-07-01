@@ -38,6 +38,15 @@ class Settings(BaseSettings):
         default="Enterprise Hybrid RAG + Text-to-SQL AI Chatbot",
         description="Application name",
     )
+    
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(
+        default=30,
+        description="Expiration time"
+    )
+    
+    JWT_SECRET_KEY: str
+    
+    JWT_ALGORITHM: str
 
     APP_VERSION: str = Field(
         default="1.0.0",
@@ -65,7 +74,6 @@ class Settings(BaseSettings):
         case_sensitive=True,
         extra="ignore",
     )
-
 
 @lru_cache
 def get_settings() -> Settings:
