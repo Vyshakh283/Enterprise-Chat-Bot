@@ -44,9 +44,17 @@ class Settings(BaseSettings):
         description="Expiration time"
     )
     
-    JWT_SECRET_KEY: str
+    JWT_SECRET_KEY: str=Field(
+        default="Demokeypresented",
+        description="Jwt secret key_Demo",
+    )
+
     
-    JWT_ALGORITHM: str
+    JWT_ALGORITHM: str=Field(
+        default="hsb1",
+        description="Algorithm",
+    )
+
 
     APP_VERSION: str = Field(
         default="1.0.0",
